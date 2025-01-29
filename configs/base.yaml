@@ -1,5 +1,18 @@
 server:
   host: 0.0.0.0
   port: 8000
+  publicurl: http://127.0.0.1:8000
+
+# https://pkg.go.dev/github.com/danielgtaylor/huma/v2#OpenAPI
+openapi:
+  servers:
+    - url: http://127.0.0.1:8000
+      description: Local server
+    - url: https://api.dowhile.uz
+      description: Production server
+
 githubauth:
-  clientid: 1
+  appid: 1
+  clientid: a
+  clientsecret: a
+  redirectpath: /v1/github-auth/complete

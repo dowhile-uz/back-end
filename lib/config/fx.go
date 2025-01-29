@@ -1,9 +1,9 @@
 package configlibfx
 
 import (
-	"fmt"
 	"os"
 
+	"github.com/danielgtaylor/huma/v2"
 	"go.uber.org/config"
 	"go.uber.org/fx"
 )
@@ -16,24 +16,41 @@ type (
 	}
 	Config struct {
 		Server struct {
-			Host string
-			Port string
+			Host      string
+			Port      string
+			Publicurl string
 		}
 		Githubauth struct {
-			Clientid string
+			Appid        int64
+			Clientid     string
+			Clientsecret string
+			Redirectpath string
 		}
+		Openapi huma.OpenAPI
 	}
 )
 
 func New(p Params) (*Config, error) {
 	c := &Config{}
 
-	file, err := os.Open("configs/base.yaml")
+	base, err := os.Open("configs/base.yaml")
 	if err != nil {
 		return nil, err
 	}
 
-	provider, err := config.NewYAML(config.Source(file))
+	var provider config.Provider
+
+	override, err := os.Open("configs/override.yaml")
+
+	if err == nil {
+		provider, err = config.NewYAML(config.Source(base), config.Source(override))
+		override.Close()
+	} else {
+		provider, err = config.NewYAML(config.Source(base))
+	}
+
+	base.Close()
+
 	if err != nil {
 		return nil, err
 	}
@@ -42,8 +59,6 @@ func New(p Params) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println("server", provider.Get(config.Root), c)
 
 	return c, nil
 }

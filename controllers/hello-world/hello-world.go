@@ -11,7 +11,7 @@ type (
 	}
 )
 
-func (h *HelloWorldController) HelloWorldHandler(ctx context.Context, input *HelloWorldInput) (*HelloWorldOutput, error) {
+func (h *Controller) HelloWorldHandler(ctx context.Context, input *HelloWorldInput) (*HelloWorldOutput, error) {
 	output := &HelloWorldOutput{}
 
 	output.Body.Message = "Hello, World!"

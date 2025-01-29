@@ -6,15 +6,18 @@ import (
 	"net"
 	"net/http"
 
+	controllersfx "dowhile.uz/back-end/controllers"
+	libfx "dowhile.uz/back-end/lib"
 	configlibfx "dowhile.uz/back-end/lib/config"
-	routerlibfx "dowhile.uz/back-end/lib/router"
+	servicesfx "dowhile.uz/back-end/services"
 	"go.uber.org/fx"
 )
 
 func main() {
 	fx.New(
-		routerlibfx.Module,
-		configlibfx.Module,
+		libfx.Module,
+		servicesfx.Module,
+		controllersfx.Module,
 		fx.Invoke(New),
 	).Run()
 }
@@ -33,6 +36,7 @@ func New(lc fx.Lifecycle, router http.Handler, config *configlibfx.Config) {
 			}
 
 			fmt.Println("Starting HTTP server at", server.Addr)
+
 			go server.Serve(ln)
 			return nil
 		},

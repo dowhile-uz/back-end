@@ -11,13 +11,13 @@ type (
 	Params struct {
 		fx.In
 	}
-	HelloWorldController struct{}
+	Controller struct{}
 )
 
-func (h *HelloWorldController) Routes(api huma.API) {
+func (h *Controller) Routes(api huma.API) {
 	huma.Get(api, "/", h.HelloWorldHandler)
 }
 
-func New(_ Params) HelloWorldController {
-	return HelloWorldController{}
+func New(_ Params) Controller {
+	return Controller{}
 }
