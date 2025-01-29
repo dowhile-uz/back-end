@@ -6,20 +6,22 @@ import (
 	"net"
 	"net/http"
 
-	"dowhile.uz/back-end/lib/router"
+	configlibfx "dowhile.uz/back-end/lib/config"
+	routerlibfx "dowhile.uz/back-end/lib/router"
 	"go.uber.org/fx"
 )
 
 func main() {
 	fx.New(
-		router.Module,
+		routerlibfx.Module,
+		configlibfx.Module,
 		fx.Invoke(New),
 	).Run()
 }
 
-func New(lc fx.Lifecycle, router http.Handler) {
+func New(lc fx.Lifecycle, router http.Handler, config *configlibfx.Config) {
 	server := http.Server{
-		Addr:    "0.0.0.0:8000",
+		Addr:    fmt.Sprintf("%s:%v", config.Server.Host, config.Server.Port),
 		Handler: router,
 	}
 

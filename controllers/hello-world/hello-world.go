@@ -1,4 +1,4 @@
-package helloworld
+package helloworldcontrollerfx
 
 import "context"
 
@@ -11,7 +11,7 @@ type (
 	}
 )
 
-func (h *HelloWorldService) HelloWorldHandler(ctx context.Context, input *HelloWorldInput) (*HelloWorldOutput, error) {
+func (h *HelloWorldController) HelloWorldHandler(ctx context.Context, input *HelloWorldInput) (*HelloWorldOutput, error) {
 	output := &HelloWorldOutput{}
 
 	output.Body.Message = "Hello, World!"
