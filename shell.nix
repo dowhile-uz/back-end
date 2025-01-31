@@ -8,6 +8,7 @@
   buildInputs = [
     pkgs.go
     pkgs.ginkgo
+    pkgs.go-migrate
   ];
 
   GOROOT = "${pkgs.go}/share/go";

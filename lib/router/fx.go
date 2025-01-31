@@ -9,6 +9,7 @@ import (
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/danielgtaylor/huma/v2/adapters/humachi"
 	"github.com/go-chi/chi/v5"
+	"github.com/rs/cors"
 	"go.uber.org/fx"
 )
 
@@ -24,8 +25,14 @@ type Params struct {
 func New(p Params) http.Handler {
 	router := chi.NewMux()
 
+	corsOptions := cors.New(cors.Options{
+		AllowedOrigins: p.Config.Server.Cors.AllowedOrigins,
+	})
+
+	router.Use(corsOptions.Handler)
+
 	config := huma.DefaultConfig("dowhile.uz", "1.0.0")
-	config.Servers = p.Config.Openapi.Servers
+	config.Servers = p.Config.OpenAPI.Servers
 
 	api := humachi.New(router, config)
 

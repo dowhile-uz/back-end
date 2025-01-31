@@ -18,15 +18,36 @@ type (
 		Server struct {
 			Host      string
 			Port      string
-			Publicurl string
+			PublicURL string `yaml:"public-url"`
+			Cors      struct {
+				AllowedOrigins []string `yaml:"allowed-origins"`
+			}
 		}
-		Githubauth struct {
-			Appid        int64
-			Clientid     string
-			Clientsecret string
-			Redirectpath string
+
+		GithubAuth struct {
+			AppID                int64  `yaml:"app-id"`
+			ClientID             string `yaml:"client-id"`
+			ClientSecret         string `yaml:"client-secret"`
+			RedirectCompletePath string `yaml:"redirect-complete-path"`
+			Scopes               []string
+		} `yaml:"github-auth"`
+
+		Infrastructure struct {
+			Postgres struct {
+				Host     string
+				Port     int
+				DB       string `yaml:"db"`
+				User     string
+				Password string
+			}
+			Redis struct {
+				Host     string
+				Port     string
+				Password string
+			}
 		}
-		Openapi huma.OpenAPI
+
+		OpenAPI huma.OpenAPI `yaml:"openapi"`
 	}
 )
 

@@ -1,7 +1,10 @@
 server:
   host: 0.0.0.0
   port: 8000
-  publicurl: http://127.0.0.1:8000
+  public-url: http://127.0.0.1:8000
+  cors:
+    allowed-origins:
+      - "*"
 
 # https://pkg.go.dev/github.com/danielgtaylor/huma/v2#OpenAPI
 openapi:
@@ -11,8 +14,27 @@ openapi:
     - url: https://api.dowhile.uz
       description: Production server
 
-githubauth:
-  appid: 1
-  clientid: a
-  clientsecret: a
-  redirectpath: /v1/github-auth/complete
+infrastructure:
+  postgres:
+    host: 127.0.0.1
+    port: 5432
+    db: db
+    user: user
+    password: password
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: password
+
+github-auth:
+  app-id: 1
+  client-id: a
+  client-secret: a
+  redirect-complete-path: /v1/github-auth/complete
+  scopes:
+    - repo
+    - gist
+    - read:user
+    - user:email
+    - user:follow
+    - read:project

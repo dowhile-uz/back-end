@@ -19,6 +19,13 @@ type (
 
 func (c *Controller) CompleteHandler(ctx context.Context, input *CompleteInput) (*CompleteOutput, error) {
 	o := &CompleteOutput{}
+
 	o.Body.Message = fmt.Sprintf("code: %s", input.Code)
+
+	_, err := c.Service.FetchUserCredentials(input.Code, input.Back)
+	if err != nil {
+		return nil, err
+	}
+
 	return o, nil
 }

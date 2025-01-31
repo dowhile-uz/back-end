@@ -2,6 +2,7 @@ package githubauthcontrollerfx
 
 import (
 	"context"
+	"net/http"
 )
 
 type (
@@ -9,14 +10,16 @@ type (
 		Back string `query:"back"`
 	}
 	RedirectOutput struct {
-		Body struct {
-			RedirectURL string `json:"redirectUrl" example:"https://github.com/login/oauth/authorize" doc:"GitHub Auth Redirect URL"`
-		}
+		Status int
+		URL    string `header:"Location"`
 	}
 )
 
 func (c *Controller) RedirectHandler(ctx context.Context, input *RedirectInput) (*RedirectOutput, error) {
-	o := &RedirectOutput{}
-	o.Body.RedirectURL = c.Service.GetRedirectURL(input.Back)
+	o := &RedirectOutput{
+		Status: http.StatusTemporaryRedirect,
+		URL:    c.Service.GetRedirectURL(input.Back),
+	}
+
 	return o, nil
 }

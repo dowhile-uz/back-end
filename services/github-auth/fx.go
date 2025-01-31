@@ -3,6 +3,7 @@ package githubauthservicefx
 import (
 	configlibfx "dowhile.uz/back-end/lib/config"
 	githubclientlibfx "dowhile.uz/back-end/lib/github-client"
+	postgreslibfx "dowhile.uz/back-end/lib/postgres"
 	"go.uber.org/fx"
 )
 
@@ -16,6 +17,7 @@ type (
 		fx.In
 		GithubClient *githubclientlibfx.Client
 		Config       *configlibfx.Config
+		Postgres     *postgreslibfx.Postgres
 	}
 	Service struct {
 		GithubClient *githubclientlibfx.Client
