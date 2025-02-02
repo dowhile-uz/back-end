@@ -2,9 +2,11 @@ server:
   host: 0.0.0.0
   port: 8000
   public-url: http://127.0.0.1:8000
+  front-end-url: http://127.0.0.1:3000
   cors:
     allowed-origins:
       - "*"
+  jwt-secret: 123
 
 # https://pkg.go.dev/github.com/danielgtaylor/huma/v2#OpenAPI
 openapi:
@@ -31,6 +33,7 @@ github-auth:
   client-id: a
   client-secret: a
   redirect-complete-path: /v1/github-auth/complete
+  redirect-front-end-path: /github-auth/complete
   scopes:
     - repo
     - gist

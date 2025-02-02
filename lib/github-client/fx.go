@@ -19,13 +19,14 @@ type (
 )
 
 func New(p Params) *Client {
-	basicAuthTransport := github.BasicAuthTransport{
-		Username: p.Config.GithubAuth.ClientID,
-		Password: p.Config.GithubAuth.ClientSecret,
-	}
+	// basicAuthTransport := github.BasicAuthTransport{
+	// 	Username: p.Config.GithubAuth.ClientID,
+	// 	Password: p.Config.GithubAuth.ClientSecret,
+	// }
 
 	client := &Client{
-		Client: *github.NewClient(basicAuthTransport.Client()),
+		// Client: *github.NewClient(basicAuthTransport.Client()),
+		Client: *github.NewClient(nil),
 	}
 
 	return client

@@ -16,12 +16,14 @@ type (
 	}
 	Config struct {
 		Server struct {
-			Host      string
-			Port      string
-			PublicURL string `yaml:"public-url"`
-			Cors      struct {
+			Host        string
+			Port        string
+			PublicURL   string `yaml:"public-url"`
+			FrontEndURL string `yaml:"front-end-url"`
+			Cors        struct {
 				AllowedOrigins []string `yaml:"allowed-origins"`
 			}
+			JWTSecret string `yaml:"jwt-secret"`
 		}
 
 		GithubAuth struct {
@@ -29,6 +31,7 @@ type (
 			ClientID             string `yaml:"client-id"`
 			ClientSecret         string `yaml:"client-secret"`
 			RedirectCompletePath string `yaml:"redirect-complete-path"`
+			RedirectFrontEndPath string `yaml:"redirect-front-end-path"`
 			Scopes               []string
 		} `yaml:"github-auth"`
 

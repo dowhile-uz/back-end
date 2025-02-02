@@ -2,10 +2,13 @@ package githubauthservicefx
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
+
+	usermodelfx "dowhile.uz/back-end/models/user"
 )
 
 type (
@@ -15,18 +18,9 @@ type (
 		Code         string `json:"code"`
 		RedirectURL  string `json:"redirect_url"`
 	}
-	GetAccessTokenResponse struct {
-		Error            string `json:"error"`
-		ErrorDescription string `json:"error_description"`
-		ErrorURI         string `json:"error_uri"`
-
-		AccessToken string `json:"access_token"`
-		Scope       string `json:"scope"`
-		TokenType   string `json:"token"`
-	}
 )
 
-func (s *Service) FetchUserCredentials(code, back string) (any, error) {
+func (s *Service) FetchAuthorizationTokens(ctx context.Context, code, back string) (*usermodelfx.GithubAuthTokensResponse, error) {
 	body := &GetAccessTokenRequest{
 		ClientID:     s.Config.GithubAuth.ClientID,
 		ClientSecret: s.Config.GithubAuth.ClientSecret,
@@ -59,11 +53,11 @@ func (s *Service) FetchUserCredentials(code, back string) (any, error) {
 		return nil, err
 	}
 
-	var responseBody GetAccessTokenResponse
+	var responseBody usermodelfx.GithubAuthTokensResponse
 
 	if err := json.NewDecoder(response.Body).Decode(&responseBody); err != nil {
 		return nil, err
 	}
 
-	return responseBody, nil
+	return &responseBody, nil
 }

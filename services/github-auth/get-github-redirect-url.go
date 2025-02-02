@@ -8,7 +8,7 @@ import (
 	"dowhile.uz/back-end/utils"
 )
 
-func (s *Service) GetRedirectURL(back string) string {
+func (s *Service) GetGitHubRedirectURL(back string) string {
 	query := url.Values{
 		"client_id": {s.Config.GithubAuth.ClientID},
 		"state":     {utils.RandomBase16String(6)},
