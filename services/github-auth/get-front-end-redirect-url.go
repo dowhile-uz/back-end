@@ -13,8 +13,8 @@ func (s *Service) GetFrontEndRedirectURL(accessToken, back string) string {
 
 	return fmt.Sprintf(
 		"%s%s?%s",
-		s.Config.Server.FrontEndURL,
-		s.Config.GithubAuth.RedirectFrontEndPath,
+		s.config.Server.FrontEndURL,
+		s.config.GithubAuth.RedirectFrontEndPath,
 		query.Encode(),
 	)
 }

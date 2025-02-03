@@ -10,14 +10,14 @@ import (
 
 func (s *Service) GetGitHubRedirectURL(back string) string {
 	query := url.Values{
-		"client_id": {s.Config.GithubAuth.ClientID},
+		"client_id": {s.config.GithubAuth.ClientID},
 		"state":     {utils.RandomBase16String(6)},
-		"scope":     {url.QueryEscape(strings.Join(s.Config.GithubAuth.Scopes, " "))},
+		"scope":     {url.QueryEscape(strings.Join(s.config.GithubAuth.Scopes, " "))},
 		"redirect_uri": {
 			fmt.Sprintf(
 				"%s%s?back=%s",
-				s.Config.Server.PublicURL,
-				s.Config.GithubAuth.RedirectCompletePath,
+				s.config.Server.PublicURL,
+				s.config.GithubAuth.RedirectCompletePath,
 				url.QueryEscape(back),
 			),
 		},

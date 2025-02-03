@@ -45,7 +45,7 @@ type (
 			}
 			Redis struct {
 				Host     string
-				Port     string
+				Port     int
 				Password string
 			}
 		}

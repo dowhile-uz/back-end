@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	githubauthcontrollerfx "dowhile.uz/back-end/controllers/github-auth"
-	helloworldcontrollerfx "dowhile.uz/back-end/controllers/hello-world"
+	profilecontrollerfx "dowhile.uz/back-end/controllers/profile"
 	configlibfx "dowhile.uz/back-end/lib/config"
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/danielgtaylor/huma/v2/adapters/humachi"
@@ -18,8 +18,8 @@ var Module = fx.Module("lib.router", fx.Provide(New))
 type Params struct {
 	fx.In
 	Config     *configlibfx.Config
-	HelloWorld helloworldcontrollerfx.Controller
 	GithubAuth githubauthcontrollerfx.Controller
+	Profile    profilecontrollerfx.Controller
 }
 
 func New(p Params) http.Handler {
@@ -34,10 +34,20 @@ func New(p Params) http.Handler {
 	config := huma.DefaultConfig("dowhile.uz", "1.0.0")
 	config.Servers = p.Config.OpenAPI.Servers
 
+	config.Components.SecuritySchemes = map[string]*huma.SecurityScheme{
+		"access_token": {
+			Name:        "Authorization",
+			Type:        "apiKey",
+			Description: "JWT access token",
+			In:          "header",
+			Scheme:      "Bearer",
+		},
+	}
+
 	api := humachi.New(router, config)
 
-	p.HelloWorld.Routes(api)
 	p.GithubAuth.Routes(api)
+	p.Profile.Routes(api)
 
 	return router
 }

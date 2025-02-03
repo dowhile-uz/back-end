@@ -22,13 +22,13 @@ type (
 
 func (s *Service) FetchAuthorizationTokens(ctx context.Context, code, back string) (*usermodelfx.GithubAuthTokensResponse, error) {
 	body := &GetAccessTokenRequest{
-		ClientID:     s.Config.GithubAuth.ClientID,
-		ClientSecret: s.Config.GithubAuth.ClientSecret,
+		ClientID:     s.config.GithubAuth.ClientID,
+		ClientSecret: s.config.GithubAuth.ClientSecret,
 		Code:         code,
 		RedirectURL: fmt.Sprintf(
 			"%s%s?back=%s",
-			s.Config.Server.PublicURL,
-			s.Config.GithubAuth.RedirectCompletePath,
+			s.config.Server.PublicURL,
+			s.config.GithubAuth.RedirectCompletePath,
 			url.QueryEscape(back),
 		),
 	}

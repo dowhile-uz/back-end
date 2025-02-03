@@ -2,12 +2,12 @@ package controllersfx
 
 import (
 	githubauthcontrollerfx "dowhile.uz/back-end/controllers/github-auth"
-	helloworldcontrollerfx "dowhile.uz/back-end/controllers/hello-world"
+	profilecontrollerfx "dowhile.uz/back-end/controllers/profile"
 	"go.uber.org/fx"
 )
 
 var Module = fx.Module(
 	"controllers",
-	helloworldcontrollerfx.Module,
 	githubauthcontrollerfx.Module,
+	profilecontrollerfx.Module,
 )

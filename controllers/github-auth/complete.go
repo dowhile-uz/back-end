@@ -25,7 +25,7 @@ type (
 func (c *Controller) CompleteHandler(ctx context.Context, input *CompleteInput) (*CompleteOutput, error) {
 	o := &CompleteOutput{}
 
-	tokens, err := c.Service.FetchAuthorizationTokens(ctx, input.Code, input.Back)
+	tokens, err := c.service.FetchAuthorizationTokens(ctx, input.Code, input.Back)
 	if err != nil {
 		return nil, err
 	}
@@ -34,12 +34,12 @@ func (c *Controller) CompleteHandler(ctx context.Context, input *CompleteInput) 
 		return nil, huma.Error400BadRequest((*tokens).Error)
 	}
 
-	githubUser, err := c.Service.FetchUserData(ctx, (*tokens).AccessToken)
+	githubUser, err := c.service.FetchUserData(ctx, (*tokens).AccessToken)
 	if err != nil {
 		return nil, err
 	}
 
-	user, err := c.UserModel.CreateOrUpdateWithTokens(ctx, githubUser, tokens)
+	user, err := c.userModel.CreateOrUpdateWithTokens(ctx, githubUser, tokens)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ func (c *Controller) CompleteHandler(ctx context.Context, input *CompleteInput) 
 		},
 	})
 
-	accessToken, err := token.SignedString([]byte(c.Config.Server.JWTSecret))
+	accessToken, err := token.SignedString([]byte(c.config.Server.JWTSecret))
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *Controller) CompleteHandler(ctx context.Context, input *CompleteInput) 
 	// 	Expires: expiresAt,
 	// }
 	o.Status = http.StatusTemporaryRedirect
-	o.URL = c.Service.GetFrontEndRedirectURL(accessToken, input.Back)
+	o.URL = c.service.GetFrontEndRedirectURL(accessToken, input.Back)
 
 	return o, nil
 }

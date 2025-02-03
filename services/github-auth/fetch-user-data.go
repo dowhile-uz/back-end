@@ -7,7 +7,7 @@ import (
 )
 
 func (s *Service) FetchUserData(ctx context.Context, accessToken string) (*github.User, error) {
-	user, _, err := s.GithubClient.WithAuthToken(accessToken).Users.Get(ctx, "")
+	user, _, err := s.githubClient.WithAuthToken(accessToken).Users.Get(ctx, "")
 	if err != nil {
 		return nil, err
 	}

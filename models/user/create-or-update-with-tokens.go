@@ -17,7 +17,7 @@ func (m *Model) CreateOrUpdateWithTokens(ctx context.Context, user *github.User,
 
 	var existingUser User
 
-	err := m.Postgres.GetContext(ctx, &existingUser, "SELECT * FROM users WHERE github_id = $1", user.ID)
+	err := m.postgres.GetContext(ctx, &existingUser, "SELECT * FROM users WHERE github_id = $1", user.ID)
 	if err != nil {
 		newUser := User{
 			GitHubID:       user.ID,
@@ -29,12 +29,12 @@ func (m *Model) CreateOrUpdateWithTokens(ctx context.Context, user *github.User,
 			Timezone:       &utc,
 		}
 
-		_, err = m.Postgres.NamedExecContext(ctx, userInsertQuery, &newUser)
+		_, err = m.postgres.NamedExecContext(ctx, userInsertQuery, &newUser)
 		if err != nil {
 			return nil, err
 		}
 
-		err = m.Postgres.GetContext(ctx, &existingUser, "SELECT * FROM users WHERE github_id = $1", user.ID)
+		err = m.postgres.GetContext(ctx, &existingUser, "SELECT * FROM users WHERE github_id = $1", user.ID)
 		if err != nil {
 			return nil, err
 		}
@@ -52,7 +52,7 @@ func (m *Model) CreateOrUpdateWithTokens(ctx context.Context, user *github.User,
 		RefreshTokenExpiresIn: &refreshTokenExpiresIn,
 	}
 
-	_, err = m.Postgres.NamedExecContext(ctx, githubTokensInsertQuery, &githubTokens)
+	_, err = m.postgres.NamedExecContext(ctx, githubTokensInsertQuery, &githubTokens)
 	if err != nil {
 		return nil, err
 	}

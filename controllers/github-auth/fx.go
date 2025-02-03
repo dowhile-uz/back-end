@@ -1,6 +1,8 @@
 package githubauthcontrollerfx
 
 import (
+	"net/http"
+
 	configlibfx "dowhile.uz/back-end/lib/config"
 	usermodelfx "dowhile.uz/back-end/models/user"
 	githubauthservicefx "dowhile.uz/back-end/services/github-auth"
@@ -18,21 +20,34 @@ type (
 		Config    *configlibfx.Config
 	}
 	Controller struct {
-		Service   githubauthservicefx.Service
-		UserModel *usermodelfx.Model
-		Config    *configlibfx.Config
+		service   githubauthservicefx.Service
+		userModel *usermodelfx.Model
+		config    *configlibfx.Config
 	}
 )
 
 func (c *Controller) Routes(api huma.API) {
-	huma.Get(api, "/v1/github-auth/redirect", c.RedirectHandler)
-	huma.Get(api, "/v1/github-auth/complete", c.CompleteHandler)
+	huma.Register(api, huma.Operation{
+		Path:        "/v1/github-auth/redirect",
+		Method:      http.MethodGet,
+		OperationID: "v1-github-auth-redirect",
+		Tags:        []string{"v1", "public", "auth", "github-auth"},
+		Summary:     "Redirect to the GitHub authotization page",
+	}, c.RedirectHandler)
+
+	huma.Register(api, huma.Operation{
+		Path:        "/v1/github-auth/complete",
+		Method:      http.MethodGet,
+		OperationID: "v1-github-auth-complete",
+		Tags:        []string{"v1", "public", "auth", "github-auth"},
+		Summary:     "Handle code from the GitHub authorization page",
+	}, c.CompleteHandler)
 }
 
 func New(p Params) Controller {
 	return Controller{
-		Service:   p.Service,
-		UserModel: p.UserModel,
-		Config:    p.Config,
+		service:   p.Service,
+		userModel: p.UserModel,
+		config:    p.Config,
 	}
 }

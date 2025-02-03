@@ -20,14 +20,14 @@ type (
 		Postgres     *postgreslibfx.Postgres
 	}
 	Service struct {
-		GithubClient *githubclientlibfx.Client
-		Config       *configlibfx.Config
+		githubClient *githubclientlibfx.Client
+		config       *configlibfx.Config
 	}
 )
 
 func New(p Params) Service {
 	return Service{
-		GithubClient: p.GithubClient,
-		Config:       p.Config,
+		githubClient: p.GithubClient,
+		config:       p.Config,
 	}
 }
