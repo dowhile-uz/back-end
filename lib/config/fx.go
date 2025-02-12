@@ -1,4 +1,4 @@
-package configlibfx
+package configLibFx
 
 import (
 	"os"
@@ -24,6 +24,10 @@ type (
 				AllowedOrigins []string `yaml:"allowed-origins"`
 			}
 			JWTSecret string `yaml:"jwt-secret"`
+		}
+
+		Github struct {
+			BotPersonalToken string `yaml:"bot-personal-token"`
 		}
 
 		GithubAuth struct {

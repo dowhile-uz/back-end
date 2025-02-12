@@ -1,11 +1,11 @@
-package redislibfx
+package redisLibFx
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	configlibfx "dowhile.uz/back-end/lib/config"
+	configLibFx "dowhile.uz/back-end/lib/config"
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/fx"
 )
@@ -15,7 +15,7 @@ var Module = fx.Module("lib.redis", fx.Provide(New))
 type (
 	Params struct {
 		fx.In
-		Config *configlibfx.Config
+		Config *configLibFx.Config
 	}
 	Redis struct {
 		redis.Client

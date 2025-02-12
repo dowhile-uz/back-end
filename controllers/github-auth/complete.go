@@ -1,11 +1,11 @@
-package githubauthcontrollerfx
+package githubAuthControllerFx
 
 import (
 	"context"
 	"net/http"
 	"time"
 
-	githubauthservicefx "dowhile.uz/back-end/services/github-auth"
+	githubAuthServiceFx "dowhile.uz/back-end/services/github-auth"
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -46,7 +46,7 @@ func (c *Controller) CompleteHandler(ctx context.Context, input *CompleteInput) 
 
 	now := time.Now()
 	expiresAt := now.Add(180 * 24 * time.Hour)
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, githubauthservicefx.AccessTokenClaims{
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, githubAuthServiceFx.AccessTokenClaims{
 		UserID: *user.ID,
 		RegisteredClaims: jwt.RegisteredClaims{
 			IssuedAt:  jwt.NewNumericDate(now),

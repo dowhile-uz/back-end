@@ -1,7 +1,7 @@
-package githubclientlibfx
+package githubClientLibFx
 
 import (
-	configlibfx "dowhile.uz/back-end/lib/config"
+	configLibFx "dowhile.uz/back-end/lib/config"
 	"github.com/google/go-github/v68/github"
 	"go.uber.org/fx"
 )
@@ -11,7 +11,7 @@ var Module = fx.Module("lib.github-client", fx.Provide(New))
 type (
 	Params struct {
 		fx.In
-		Config *configlibfx.Config
+		Config *configLibFx.Config
 	}
 	Client struct {
 		github.Client
@@ -26,6 +26,7 @@ func New(p Params) *Client {
 
 	client := &Client{
 		// Client: *github.NewClient(basicAuthTransport.Client()),
+
 		Client: *github.NewClient(nil),
 	}
 

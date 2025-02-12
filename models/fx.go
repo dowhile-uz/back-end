@@ -1,11 +1,11 @@
-package modelsfx
+package modelsFx
 
 import (
-	usermodelfx "dowhile.uz/back-end/models/user"
+	userModelFx "dowhile.uz/back-end/models/user"
 	"go.uber.org/fx"
 )
 
 var Module = fx.Module(
 	"models",
-	usermodelfx.Module,
+	userModelFx.Module,
 )

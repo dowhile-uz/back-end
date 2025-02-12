@@ -1,9 +1,9 @@
-package profilecontrollerfx
+package profileControllerFx
 
 import (
 	"net/http"
 
-	authorizedmiddlewarelibfx "dowhile.uz/back-end/lib/authorized-middleware"
+	authorizedMiddlewareLibFx "dowhile.uz/back-end/lib/authorized-middleware"
 	"dowhile.uz/back-end/utils"
 	"github.com/danielgtaylor/huma/v2"
 	"go.uber.org/fx"
@@ -14,10 +14,10 @@ var Module = fx.Module("controllers.profile", fx.Provide(New))
 type (
 	Params struct {
 		fx.In
-		AuthorizedMiddleware *authorizedmiddlewarelibfx.Middleware
+		AuthorizedMiddleware *authorizedMiddlewareLibFx.Middleware
 	}
 	Controller struct {
-		authorizedMiddleware *authorizedmiddlewarelibfx.Middleware
+		authorizedMiddleware *authorizedMiddlewareLibFx.Middleware
 	}
 )
 

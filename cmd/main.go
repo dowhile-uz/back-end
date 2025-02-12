@@ -6,20 +6,20 @@ import (
 	"net"
 	"net/http"
 
-	controllersfx "dowhile.uz/back-end/controllers"
-	libfx "dowhile.uz/back-end/lib"
+	controllersFx "dowhile.uz/back-end/controllers"
+	libFx "dowhile.uz/back-end/lib"
 	configlibfx "dowhile.uz/back-end/lib/config"
-	modelsfx "dowhile.uz/back-end/models"
-	servicesfx "dowhile.uz/back-end/services"
+	modelsFx "dowhile.uz/back-end/models"
+	servicesFx "dowhile.uz/back-end/services"
 	"go.uber.org/fx"
 )
 
 func main() {
 	fx.New(
-		libfx.Module,
-		servicesfx.Module,
-		controllersfx.Module,
-		modelsfx.Module,
+		libFx.Module,
+		servicesFx.Module,
+		controllersFx.Module,
+		modelsFx.Module,
 		fx.Invoke(New),
 	).Run()
 }

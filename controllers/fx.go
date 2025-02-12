@@ -1,13 +1,15 @@
-package controllersfx
+package controllersFx
 
 import (
-	githubauthcontrollerfx "dowhile.uz/back-end/controllers/github-auth"
-	profilecontrollerfx "dowhile.uz/back-end/controllers/profile"
+	editorControllerFx "dowhile.uz/back-end/controllers/editor"
+	githubAuthControllerFx "dowhile.uz/back-end/controllers/github-auth"
+	profileControllerFx "dowhile.uz/back-end/controllers/profile"
 	"go.uber.org/fx"
 )
 
 var Module = fx.Module(
 	"controllers",
-	githubauthcontrollerfx.Module,
-	profilecontrollerfx.Module,
+	githubAuthControllerFx.Module,
+	profileControllerFx.Module,
+	editorControllerFx.Module,
 )

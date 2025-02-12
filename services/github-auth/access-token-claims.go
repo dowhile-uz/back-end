@@ -1,4 +1,4 @@
-package githubauthservicefx
+package githubAuthServiceFx
 
 import "github.com/golang-jwt/jwt/v5"
 

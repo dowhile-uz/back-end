@@ -1,21 +1,23 @@
-package libfx
+package libFx
 
 import (
-	authorizedmiddlewarelibfx "dowhile.uz/back-end/lib/authorized-middleware"
-	configlibfx "dowhile.uz/back-end/lib/config"
-	githubclientlibfx "dowhile.uz/back-end/lib/github-client"
-	postgreslibfx "dowhile.uz/back-end/lib/postgres"
-	redislibfx "dowhile.uz/back-end/lib/redis"
-	routerlibfx "dowhile.uz/back-end/lib/router"
+	authorizedMiddlewareLibFx "dowhile.uz/back-end/lib/authorized-middleware"
+	configLibFx "dowhile.uz/back-end/lib/config"
+	errorCodesLibFx "dowhile.uz/back-end/lib/error-codes"
+	githubClientLibFx "dowhile.uz/back-end/lib/github-client"
+	postgresLibFx "dowhile.uz/back-end/lib/postgres"
+	redisLibFx "dowhile.uz/back-end/lib/redis"
+	routerLibFx "dowhile.uz/back-end/lib/router"
 	"go.uber.org/fx"
 )
 
 var Module = fx.Module(
 	"lib",
-	configlibfx.Module,
-	routerlibfx.Module,
-	githubclientlibfx.Module,
-	postgreslibfx.Module,
-	redislibfx.Module,
-	authorizedmiddlewarelibfx.Module,
+	configLibFx.Module,
+	routerLibFx.Module,
+	githubClientLibFx.Module,
+	postgresLibFx.Module,
+	redisLibFx.Module,
+	authorizedMiddlewareLibFx.Module,
+	errorCodesLibFx.Module,
 )

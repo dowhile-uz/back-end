@@ -1,4 +1,4 @@
-package githubauthservicefx
+package githubAuthServiceFx
 
 import (
 	"fmt"

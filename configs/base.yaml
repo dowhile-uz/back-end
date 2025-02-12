@@ -28,6 +28,9 @@ infrastructure:
     port: 6379
     password: password
 
+github:
+  bot-personal-token: a
+
 github-auth:
   app-id: 1
   client-id: a

@@ -1,4 +1,4 @@
-package githubauthcontrollerfx
+package githubAuthControllerFx
 
 import (
 	"context"

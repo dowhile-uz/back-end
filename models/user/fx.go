@@ -1,8 +1,8 @@
-package usermodelfx
+package userModelFx
 
 import (
-	postgreslibfx "dowhile.uz/back-end/lib/postgres"
-	redislibfx "dowhile.uz/back-end/lib/redis"
+	postgresLibFx "dowhile.uz/back-end/lib/postgres"
+	redisLibFx "dowhile.uz/back-end/lib/redis"
 	"go.uber.org/fx"
 )
 
@@ -12,12 +12,12 @@ type (
 	Params struct {
 		fx.In
 
-		Postgres *postgreslibfx.Postgres
-		Redis    *redislibfx.Redis
+		Postgres *postgresLibFx.Postgres
+		Redis    *redisLibFx.Redis
 	}
 	Model struct {
-		postgres *postgreslibfx.Postgres
-		redis    *redislibfx.Redis
+		postgres *postgresLibFx.Postgres
+		redis    *redisLibFx.Redis
 	}
 )
 

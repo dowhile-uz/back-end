@@ -1,11 +1,11 @@
-package githubauthcontrollerfx
+package githubAuthControllerFx
 
 import (
 	"net/http"
 
-	configlibfx "dowhile.uz/back-end/lib/config"
-	usermodelfx "dowhile.uz/back-end/models/user"
-	githubauthservicefx "dowhile.uz/back-end/services/github-auth"
+	configLibFx "dowhile.uz/back-end/lib/config"
+	userModelFx "dowhile.uz/back-end/models/user"
+	githubAuthServiceFx "dowhile.uz/back-end/services/github-auth"
 	"github.com/danielgtaylor/huma/v2"
 	"go.uber.org/fx"
 )
@@ -15,14 +15,14 @@ var Module = fx.Module("controllers.github-auth", fx.Provide(New))
 type (
 	Params struct {
 		fx.In
-		Service   githubauthservicefx.Service
-		UserModel *usermodelfx.Model
-		Config    *configlibfx.Config
+		Service   githubAuthServiceFx.Service
+		UserModel *userModelFx.Model
+		Config    *configLibFx.Config
 	}
 	Controller struct {
-		service   githubauthservicefx.Service
-		userModel *usermodelfx.Model
-		config    *configlibfx.Config
+		service   githubAuthServiceFx.Service
+		userModel *userModelFx.Model
+		config    *configLibFx.Config
 	}
 )
 

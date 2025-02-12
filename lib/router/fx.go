@@ -1,11 +1,11 @@
-package routerlibfx
+package routerLibFx
 
 import (
 	"net/http"
 
-	githubauthcontrollerfx "dowhile.uz/back-end/controllers/github-auth"
-	profilecontrollerfx "dowhile.uz/back-end/controllers/profile"
-	configlibfx "dowhile.uz/back-end/lib/config"
+	githubAuthControllerFx "dowhile.uz/back-end/controllers/github-auth"
+	profileControllerFx "dowhile.uz/back-end/controllers/profile"
+	configLibFx "dowhile.uz/back-end/lib/config"
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/danielgtaylor/huma/v2/adapters/humachi"
 	"github.com/go-chi/chi/v5"
@@ -17,9 +17,9 @@ var Module = fx.Module("lib.router", fx.Provide(New))
 
 type Params struct {
 	fx.In
-	Config     *configlibfx.Config
-	GithubAuth githubauthcontrollerfx.Controller
-	Profile    profilecontrollerfx.Controller
+	Config     *configLibFx.Config
+	GithubAuth githubAuthControllerFx.Controller
+	Profile    profileControllerFx.Controller
 }
 
 func New(p Params) http.Handler {

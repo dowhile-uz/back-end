@@ -1,4 +1,4 @@
-package usermodelfx
+package userModelFx
 
 type GithubAuthTokensResponse struct {
 	Error            string `json:"error"`

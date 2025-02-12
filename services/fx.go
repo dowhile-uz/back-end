@@ -1,11 +1,13 @@
-package servicesfx
+package servicesFx
 
 import (
-	githubauthservicefx "dowhile.uz/back-end/services/github-auth"
+	editorServiceFx "dowhile.uz/back-end/services/editor"
+	githubAuthServiceFx "dowhile.uz/back-end/services/github-auth"
 	"go.uber.org/fx"
 )
 
 var Module = fx.Module(
 	"services",
-	githubauthservicefx.Module,
+	githubAuthServiceFx.Module,
+	editorServiceFx.Module,
 )

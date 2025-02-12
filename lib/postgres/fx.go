@@ -1,9 +1,9 @@
-package postgreslibfx
+package postgresLibFx
 
 import (
 	"fmt"
 
-	configlibfx "dowhile.uz/back-end/lib/config"
+	configLibFx "dowhile.uz/back-end/lib/config"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -16,7 +16,7 @@ type (
 	Params struct {
 		fx.In
 
-		Config *configlibfx.Config
+		Config *configLibFx.Config
 	}
 	Postgres struct {
 		*sqlx.DB

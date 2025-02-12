@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	configlibfx "dowhile.uz/back-end/lib/config"
+	configLibFx "dowhile.uz/back-end/lib/config"
 )
 
 func main() {
-	config, err := configlibfx.New(configlibfx.Params{})
+	config, err := configLibFx.New(configLibFx.Params{})
 	if err != nil {
 		panic(err)
 	}

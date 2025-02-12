@@ -1,4 +1,4 @@
-package usermodelfx
+package userModelFx
 
 import (
 	"time"

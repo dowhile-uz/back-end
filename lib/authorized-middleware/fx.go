@@ -1,11 +1,11 @@
-package authorizedmiddlewarelibfx
+package authorizedMiddlewareLibFx
 
 import (
 	"context"
 	"strings"
 
-	configlibfx "dowhile.uz/back-end/lib/config"
-	usermodelfx "dowhile.uz/back-end/models/user"
+	configLibFx "dowhile.uz/back-end/lib/config"
+	userModelFx "dowhile.uz/back-end/models/user"
 	"github.com/danielgtaylor/huma/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"go.uber.org/fx"
@@ -16,12 +16,12 @@ var Module = fx.Module("lib.authorized-middleware", fx.Provide(New))
 type (
 	Params struct {
 		fx.In
-		Config    *configlibfx.Config
-		UserModel *usermodelfx.Model
+		Config    *configLibFx.Config
+		UserModel *userModelFx.Model
 	}
 	Middleware struct {
-		config    *configlibfx.Config
-		userModel *usermodelfx.Model
+		config    *configLibFx.Config
+		userModel *userModelFx.Model
 	}
 )
 

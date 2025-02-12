@@ -1,9 +1,9 @@
-package githubauthservicefx
+package githubAuthServiceFx
 
 import (
-	configlibfx "dowhile.uz/back-end/lib/config"
-	githubclientlibfx "dowhile.uz/back-end/lib/github-client"
-	postgreslibfx "dowhile.uz/back-end/lib/postgres"
+	configLibFx "dowhile.uz/back-end/lib/config"
+	githubClientLibFx "dowhile.uz/back-end/lib/github-client"
+	postgresLibFx "dowhile.uz/back-end/lib/postgres"
 	"go.uber.org/fx"
 )
 
@@ -15,13 +15,13 @@ var Module = fx.Module(
 type (
 	Params struct {
 		fx.In
-		GithubClient *githubclientlibfx.Client
-		Config       *configlibfx.Config
-		Postgres     *postgreslibfx.Postgres
+		GithubClient *githubClientLibFx.Client
+		Config       *configLibFx.Config
+		Postgres     *postgresLibFx.Postgres
 	}
 	Service struct {
-		githubClient *githubclientlibfx.Client
-		config       *configlibfx.Config
+		githubClient *githubClientLibFx.Client
+		config       *configLibFx.Config
 	}
 )
 
