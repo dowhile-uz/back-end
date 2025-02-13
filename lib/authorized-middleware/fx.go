@@ -30,7 +30,7 @@ func (m *Middleware) GetMiddleware(api huma.API) func(huma.Context, func(huma.Co
 		authorization := ctx.Header("Authorization")
 		authorization = strings.TrimPrefix(authorization, "Bearer ")
 
-		token, err := jwt.Parse(authorization, func(token *jwt.Token) (interface{}, error) {
+		token, err := jwt.Parse(authorization, func(_ *jwt.Token) (any, error) {
 			return []byte(m.config.Server.JWTSecret), nil
 		})
 		if err != nil {

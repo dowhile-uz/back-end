@@ -30,6 +30,7 @@ infrastructure:
 
 github:
   bot-personal-token: a
+  community-org-name: dowhile-uz-community
 
 github-auth:
   app-id: 1

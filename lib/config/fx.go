@@ -28,6 +28,7 @@ type (
 
 		Github struct {
 			BotPersonalToken string `yaml:"bot-personal-token"`
+			CommunityOrgName string `yaml:"community-org-name"`
 		}
 
 		GithubAuth struct {

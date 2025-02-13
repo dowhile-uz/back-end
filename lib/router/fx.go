@@ -3,6 +3,7 @@ package routerLibFx
 import (
 	"net/http"
 
+	editorControllerFx "dowhile.uz/back-end/controllers/editor"
 	githubAuthControllerFx "dowhile.uz/back-end/controllers/github-auth"
 	profileControllerFx "dowhile.uz/back-end/controllers/profile"
 	configLibFx "dowhile.uz/back-end/lib/config"
@@ -20,6 +21,7 @@ type Params struct {
 	Config     *configLibFx.Config
 	GithubAuth githubAuthControllerFx.Controller
 	Profile    profileControllerFx.Controller
+	Editor     editorControllerFx.Controller
 }
 
 func New(p Params) http.Handler {
@@ -48,6 +50,7 @@ func New(p Params) http.Handler {
 
 	p.GithubAuth.Routes(api)
 	p.Profile.Routes(api)
+	p.Editor.Routes(api)
 
 	return router
 }

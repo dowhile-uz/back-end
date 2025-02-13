@@ -1,16 +1,32 @@
 package editorServiceFx
 
-import "go.uber.org/fx"
+import (
+	configLibFx "dowhile.uz/back-end/lib/config"
+	githubClientLibFx "dowhile.uz/back-end/lib/github-client"
+	userModelFx "dowhile.uz/back-end/models/user"
+	"go.uber.org/fx"
+)
 
 var Module = fx.Module("services.editor", fx.Provide(New))
 
 type (
 	Params struct {
 		fx.In
+		GithubClient *githubClientLibFx.Client
+		Config       *configLibFx.Config
+		UserModel    *userModelFx.Model
 	}
-	Service struct{}
+	Service struct {
+		githubClient *githubClientLibFx.Client
+		config       *configLibFx.Config
+		userModel    *userModelFx.Model
+	}
 )
 
 func New(p Params) Service {
-	return Service{}
+	return Service{
+		githubClient: p.GithubClient,
+		config:       p.Config,
+		userModel:    p.UserModel,
+	}
 }
