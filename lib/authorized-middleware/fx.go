@@ -1,7 +1,6 @@
 package authorizedMiddlewareLibFx
 
 import (
-	"context"
 	"net/http"
 	"strings"
 
