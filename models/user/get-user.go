@@ -20,7 +20,7 @@ func (m *Model) GetUser(ctx context.Context, userID int64) (*User, error) {
 			return &user, nil
 		}
 
-		fmt.Println("models.User: redis get unmarshal error")
+		fmt.Println("models.user.get-user: redis get unmarshal error")
 	}
 
 	err := m.postgres.GetContext(ctx, &user, userByIDSelectQuery, userID)
@@ -35,7 +35,7 @@ func (m *Model) GetUser(ctx context.Context, userID int64) (*User, error) {
 
 	cmd := m.redis.Set(ctx, key, string(userRaw), time.Duration(5)*time.Minute)
 	if cmd != nil && cmd.Err() != nil {
-		fmt.Println("models.User: redis set error", cmd.Err())
+		fmt.Println("models.user.get-user: redis set error", cmd.Err())
 	}
 
 	return &user, nil

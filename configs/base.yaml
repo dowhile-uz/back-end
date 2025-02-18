@@ -29,10 +29,10 @@ infrastructure:
     password: password
 
 github:
-  bot-personal-token: a
   community-org-name: dowhile-uz-community
 
 github-auth:
+  app-name: dowhile-uz-testing
   app-id: 1
   client-id: a
   client-secret: a
@@ -40,8 +40,4 @@ github-auth:
   redirect-front-end-path: /github-auth/complete
   scopes:
     - repo
-    - gist
-    - read:user
-    - user:email
-    - user:follow
-    - read:project
+    - user

@@ -1,4 +1,4 @@
-package editorServiceFx
+package githubServiceFx
 
 import (
 	"context"
@@ -12,13 +12,8 @@ import (
   https://stackoverflow.com/questions/18810743/github-api-how-to-check-if-repository-name-available
 */
 
-func (s *Service) UserRepoAvailabilityCheck(ctx context.Context, userID int64, owner, repo string) (bool, error) {
-	githubTokens, err := s.userModel.GetGithubTokens(ctx, userID)
-	if err != nil {
-		return false, err
-	}
-
-	repoResult, _, err := s.githubClient.WithAuthToken(*githubTokens.AccessToken).Repositories.Get(ctx, owner, repo)
+func (s *Service) UserRepoAvailabilityCheck(ctx context.Context, accessToken, owner, repo string) (bool, error) {
+	repoResult, _, err := s.githubClient.WithAuthToken(accessToken).Repositories.Get(ctx, owner, repo)
 	if err != nil {
 		// TODO: proper error handling
 		return true, nil

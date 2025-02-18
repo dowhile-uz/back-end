@@ -18,7 +18,7 @@ type (
 func (c *Controller) RedirectHandler(ctx context.Context, input *RedirectInput) (*RedirectOutput, error) {
 	o := &RedirectOutput{
 		Status: http.StatusTemporaryRedirect,
-		URL:    c.service.GetGitHubRedirectURL(input.Back),
+		URL:    c.service.GetGithubRedirectURL(input.Back),
 	}
 
 	return o, nil

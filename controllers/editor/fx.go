@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	authorizedMiddlewareLibFx "dowhile.uz/back-end/lib/authorized-middleware"
-	editorServiceFx "dowhile.uz/back-end/services/editor"
+	githubServiceFx "dowhile.uz/back-end/services/github"
 	"dowhile.uz/back-end/utils"
 	"github.com/danielgtaylor/huma/v2"
 	"go.uber.org/fx"
@@ -15,11 +15,11 @@ var Module = fx.Module("controllers.editor", fx.Provide(New))
 type (
 	Params struct {
 		fx.In
-		Service              editorServiceFx.Service
+		Service              githubServiceFx.Service
 		AuthorizedMiddleware *authorizedMiddlewareLibFx.Middleware
 	}
 	Controller struct {
-		service              editorServiceFx.Service
+		service              githubServiceFx.Service
 		authorizedMiddleware *authorizedMiddlewareLibFx.Middleware
 	}
 )

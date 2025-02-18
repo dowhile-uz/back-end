@@ -6,7 +6,6 @@ import (
 	"time"
 
 	githubAuthServiceFx "dowhile.uz/back-end/services/github-auth"
-	"github.com/danielgtaylor/huma/v2"
 	"github.com/golang-jwt/jwt/v5"
 )
 
@@ -25,13 +24,9 @@ type (
 func (c *Controller) CompleteHandler(ctx context.Context, input *CompleteInput) (*CompleteOutput, error) {
 	o := &CompleteOutput{}
 
-	tokens, err := c.service.FetchAuthorizationTokens(ctx, input.Code, input.Back)
+	tokens, err := c.service.FetchTokens(ctx, input.Code, input.Back)
 	if err != nil {
 		return nil, err
-	}
-
-	if (*tokens).Error != "" {
-		return nil, huma.Error400BadRequest((*tokens).Error)
 	}
 
 	githubUser, err := c.service.FetchUserData(ctx, (*tokens).AccessToken)
@@ -39,7 +34,12 @@ func (c *Controller) CompleteHandler(ctx context.Context, input *CompleteInput) 
 		return nil, err
 	}
 
-	user, err := c.userModel.CreateOrUpdateWithTokens(ctx, githubUser, tokens)
+	user, err := c.userModel.CreateOrUpdateUser(ctx, githubUser)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = c.userModel.CreateGithubTokens(ctx, *user.ID, tokens)
 	if err != nil {
 		return nil, err
 	}

@@ -1,4 +1,4 @@
-package editorServiceFx
+package githubServiceFx
 
 import (
 	configLibFx "dowhile.uz/back-end/lib/config"
@@ -7,7 +7,7 @@ import (
 	"go.uber.org/fx"
 )
 
-var Module = fx.Module("services.editor", fx.Provide(New))
+var Module = fx.Module("services.github", fx.Provide(New))
 
 type (
 	Params struct {

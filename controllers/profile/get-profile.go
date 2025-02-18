@@ -8,9 +8,12 @@ import (
 )
 
 type (
+	InternalUser struct {
+		*userModelFx.User
+	}
 	GetProfileInput  struct{}
 	GetProfileOutput struct {
-		Body *userModelFx.User
+		Body InternalUser
 	}
 )
 
@@ -20,7 +23,8 @@ func (c *Controller) GetProfileHandler(ctx context.Context, input *GetProfileInp
 		return nil, huma.Error401Unauthorized("User is not authorized")
 	}
 
-	return &GetProfileOutput{
-		Body: user,
-	}, nil
+	output := &GetProfileOutput{}
+	output.Body.User = user
+
+	return output, nil
 }
