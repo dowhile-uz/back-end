@@ -1,6 +1,8 @@
 package authorizedMiddlewareLibFx
 
 import (
+	"context"
+	"net/http"
 	"strings"
 
 	configLibFx "dowhile.uz/back-end/lib/config"
@@ -36,30 +38,30 @@ func (m *Middleware) GetMiddleware(api huma.API) func(huma.Context, func(huma.Co
 			return []byte(m.config.Server.JWTSecret), nil
 		})
 		if err != nil {
-			huma.WriteErr(api, ctx, 401, "Token parse error", err)
+			huma.WriteErr(api, ctx, http.StatusUnauthorized, "Token parse error", err)
 			return
 		}
 
 		if !token.Valid {
-			huma.WriteErr(api, ctx, 401, "Token invalid")
+			huma.WriteErr(api, ctx, http.StatusUnauthorized, "Token invalid")
 			return
 		}
 
 		claims, ok := token.Claims.(jwt.MapClaims)
 		if !ok {
-			huma.WriteErr(api, ctx, 500, "Token claims is not jwt.MapClaims")
+			huma.WriteErr(api, ctx, http.StatusInternalServerError, "Token claims is not jwt.MapClaims")
 			return
 		}
 
 		userID, ok := claims["user_id"].(float64)
 		if !ok {
-			huma.WriteErr(api, ctx, 401, "Token claims doesn't contain user_id")
+			huma.WriteErr(api, ctx, http.StatusUnauthorized, "Token claims doesn't contain user_id")
 			return
 		}
 
 		user, err := m.userModel.GetUser(ctx.Context(), int64(userID))
 		if err != nil {
-			huma.WriteErr(api, ctx, 401, "User not found", err)
+			huma.WriteErr(api, ctx, http.StatusUnauthorized, "User not found", err)
 			return
 		}
 
@@ -77,19 +79,19 @@ func (m *Middleware) GetMiddleware(api huma.API) func(huma.Context, func(huma.Co
 
 		refreshToken, err := m.userModel.GetGithubRefreshToken(ctx.Context(), *user.ID)
 		if err != nil {
-			huma.WriteErr(api, ctx, 401, "Tokens expired, relogin", err)
+			huma.WriteErr(api, ctx, http.StatusUnauthorized, "Tokens expired, relogin", err)
 			return
 		}
 
 		githubTokens, err := m.service.RefreshTokens(ctx.Context(), refreshToken)
 		if err != nil {
-			huma.WriteErr(api, ctx, 401, "Tokens expired, relogin", err)
+			huma.WriteErr(api, ctx, http.StatusUnauthorized, "Tokens expired, relogin", err)
 			return
 		}
 
 		_, err = m.userModel.CreateGithubTokens(ctx.Context(), *user.ID, githubTokens)
 		if err != nil {
-			huma.WriteErr(api, ctx, 500, "Failed to store github tokens", err)
+			huma.WriteErr(api, ctx, http.StatusInternalServerError, "Failed to store github tokens", err)
 			return
 		}
 
