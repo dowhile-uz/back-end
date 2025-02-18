@@ -6,31 +6,25 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
 
 	usermodelfx "dowhile.uz/back-end/models/user"
 )
 
 type (
-	GetAccessTokenRequest struct {
+	RefreshAccessTokenRequest struct {
 		ClientID     string `json:"client_id"`
 		ClientSecret string `json:"client_secret"`
-		Code         string `json:"code"`
-		RedirectURL  string `json:"redirect_url"`
+		RefreshToken string `json:"refresh_token"`
+		GrantType    string `json:"grant_type"`
 	}
 )
 
-func (s *Service) FetchAuthorizationTokens(ctx context.Context, code, back string) (*usermodelfx.GithubAuthTokensResponse, error) {
-	body := &GetAccessTokenRequest{
+func (s *Service) RefreshTokens(ctx context.Context, refreshToken string) (*usermodelfx.GithubAuthTokensResponse, error) {
+	body := &RefreshAccessTokenRequest{
 		ClientID:     s.config.GithubAuth.ClientID,
 		ClientSecret: s.config.GithubAuth.ClientSecret,
-		Code:         code,
-		RedirectURL: fmt.Sprintf(
-			"%s%s?back=%s",
-			s.config.Server.PublicURL,
-			s.config.GithubAuth.RedirectCompletePath,
-			url.QueryEscape(back),
-		),
+		RefreshToken: refreshToken,
+		GrantType:    "refresh_token",
 	}
 
 	bodyRaw, err := json.Marshal(body)
@@ -57,6 +51,10 @@ func (s *Service) FetchAuthorizationTokens(ctx context.Context, code, back strin
 
 	if err := json.NewDecoder(response.Body).Decode(&responseBody); err != nil {
 		return nil, err
+	}
+
+	if responseBody.Error != "" {
+		return nil, fmt.Errorf("github auth error: %s", responseBody.Error)
 	}
 
 	return &responseBody, nil

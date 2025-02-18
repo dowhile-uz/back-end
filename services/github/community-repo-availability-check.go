@@ -1,8 +1,7 @@
-package editorServiceFx
+package githubServiceFx
 
 import (
 	"context"
-	"fmt"
 )
 
 /*
@@ -14,7 +13,6 @@ import (
 */
 
 func (s *Service) CommunityRepoAvailabilityCheck(ctx context.Context, repo string) (bool, error) {
-	fmt.Println(s.config.Github.CommunityOrgName, repo)
 	repoResult, _, err := s.githubClient.Bot.Repositories.Get(ctx, s.config.Github.CommunityOrgName, repo)
 	if err != nil {
 		// TODO: proper error handling

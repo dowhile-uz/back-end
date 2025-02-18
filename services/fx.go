@@ -1,7 +1,7 @@
 package servicesFx
 
 import (
-	editorServiceFx "dowhile.uz/back-end/services/editor"
+	githubServiceFx "dowhile.uz/back-end/services/github"
 	githubAuthServiceFx "dowhile.uz/back-end/services/github-auth"
 	"go.uber.org/fx"
 )
@@ -9,5 +9,5 @@ import (
 var Module = fx.Module(
 	"services",
 	githubAuthServiceFx.Module,
-	editorServiceFx.Module,
+	githubServiceFx.Module,
 )

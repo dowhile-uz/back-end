@@ -32,9 +32,11 @@ type (
 		}
 
 		GithubAuth struct {
+			AppName              string `yaml:"app-name"`
 			AppID                int64  `yaml:"app-id"`
 			ClientID             string `yaml:"client-id"`
 			ClientSecret         string `yaml:"client-secret"`
+			PrivateKey           string `yaml:"private-key"`
 			RedirectCompletePath string `yaml:"redirect-complete-path"`
 			RedirectFrontEndPath string `yaml:"redirect-front-end-path"`
 			Scopes               []string

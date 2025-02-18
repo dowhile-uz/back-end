@@ -1,4 +1,4 @@
-package editorServiceFx
+package githubServiceFx
 
 import (
 	"context"

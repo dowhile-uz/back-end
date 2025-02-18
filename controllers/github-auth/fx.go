@@ -36,6 +36,14 @@ func (c *Controller) Routes(api huma.API) {
 	}, c.RedirectHandler)
 
 	huma.Register(api, huma.Operation{
+		Path:        "/v1/github-auth/install",
+		Method:      http.MethodGet,
+		OperationID: "v1-github-auth-install",
+		Tags:        []string{"v1", "public", "auth", "github-auth"},
+		Summary:     "Redirect to the GitHub installation page",
+	}, c.InstallHandler)
+
+	huma.Register(api, huma.Operation{
 		Path:        "/v1/github-auth/complete",
 		Method:      http.MethodGet,
 		OperationID: "v1-github-auth-complete",
